@@ -7,3 +7,8 @@ class PasswordMissingDigitException : IllegalArgumentException("Password must co
 
 // Username
 class UsernameAlreadyExistsException : RuntimeException("Username already exists")
+
+//Customer
+class CustomerCreationException(message: String) : RuntimeException(message)
+class CustomerUpdateException(message: String) : RuntimeException(message)
+class CustomerDeleteException(message: String) : RuntimeException(message)
