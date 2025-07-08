@@ -27,7 +27,7 @@ class UserService(private val userRepository: UserRepository, private val passwo
         return CreateUserResponse("User with username: ${savedUser.username} created successfully")
     }
 
-    fun validatePassword(password: String) {
+    internal fun validatePassword(password: String) {
         if (password.length < 8) {
             throw PasswordTooShortException() as Throwable
         }

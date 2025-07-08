@@ -18,11 +18,17 @@ data class CustomerEntity(
     @Enumerated(EnumType.STRING)
     val gender: Gender,
 
-) {
-    constructor() : this(id = null, customerNumber = 0, customerName = "" ,dateOfBirth = LocalDate.now(), gender = Gender.M)
+    ) {
+    constructor() : this(
+        id = null,
+        customerNumber = 0,
+        customerName = "",
+        dateOfBirth = LocalDate.now(),
+        gender = Gender.M
+    )
 
 }
 
-enum class Gender{
+enum class Gender {
     M, F
 }
