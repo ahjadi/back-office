@@ -377,6 +377,3 @@ The application includes a `LoggingFilter` that logs:
 
 ### Entity Relationship Diagram
 An ERD is available at `src/main/resources/erd.png` showing the database structure.
-
-## License
-This project is proprietary software. All rights reserved.
