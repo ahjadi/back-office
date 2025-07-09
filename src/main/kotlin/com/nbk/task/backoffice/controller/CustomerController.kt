@@ -20,7 +20,7 @@ class CustomerController(val customerService: CustomerService) {
         )
     }
 
-    @PatchMapping("/update/{customerId}")
+    @PatchMapping("/{customerId}")
     fun updateCustomer(
         @RequestBody request: UpdateCustomerRequest,
         @PathVariable customerId: Long
@@ -35,7 +35,7 @@ class CustomerController(val customerService: CustomerService) {
         )
     }
 
-    @DeleteMapping("/delete/{customerId}")
+    @DeleteMapping("/{customerId}")
     fun deleteCustomer(@PathVariable customerId: Long): ResponseEntity<GenericResponseMessage?> {
         return ResponseEntity.ok(customerService.deleteCustomer(customerId = customerId))
     }
