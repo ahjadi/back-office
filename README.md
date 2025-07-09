@@ -126,7 +126,7 @@ Response: 200 OK
 
 #### Add Customer
 ```http
-POST /customers/add
+POST /customers
 Authorization: Bearer {token}
 Content-Type: application/json
 
@@ -148,7 +148,7 @@ Response: 200 OK
 
 #### Update Customer
 ```http
-PATCH /customers/update/{customerId}
+PATCH /customers/{customerId}
 Authorization: Bearer {token}
 Content-Type: application/json
 
@@ -170,7 +170,7 @@ Response: 200 OK
 
 #### Delete Customer
 ```http
-DELETE /customers/delete/{customerId}
+DELETE /customers/{customerId}
 Authorization: Bearer {token}
 
 Response: 200 OK
@@ -181,7 +181,7 @@ Response: 200 OK
 
 #### List All Customers
 ```http
-GET /customers/list
+GET /customers
 Authorization: Bearer {token}
 
 Response: 200 OK
