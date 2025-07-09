@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/customers")
 class CustomerController(val customerService: CustomerService) {
 
-    @PostMapping("/add")
+    @PostMapping
     fun addCustomer(@RequestBody request: AddCustomerRequest): ResponseEntity<AddCustomerResponse?> {
         return ResponseEntity.ok(
             customerService.addCustomer(
@@ -40,7 +40,7 @@ class CustomerController(val customerService: CustomerService) {
         return ResponseEntity.ok(customerService.deleteCustomer(customerId = customerId))
     }
 
-    @GetMapping("/list")
+    @GetMapping
     fun retrieveAllCustomers(): ResponseEntity<ListOfCustomers> {
         return ResponseEntity.ok(customerService.retrieveAllCustomers())
     }
