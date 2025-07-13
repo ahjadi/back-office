@@ -3,6 +3,7 @@
 A Spring Boot REST API application built with Kotlin and Maven for managing customers with JWT-based authentication.
 
 ## Table of Contents
+
 - [Overview](#overview)
 - [Technologies](#technologies)
 - [Project Structure](#project-structure)
@@ -15,7 +16,8 @@ A Spring Boot REST API application built with Kotlin and Maven for managing cust
 
 ## Overview
 
-This back-office application provides a secure REST API for user authentication and customer management operations. It features JWT-based authentication, comprehensive error handling, and request/response logging.
+This back-office application provides a secure REST API for user authentication and customer management operations. It
+features JWT-based authentication, and comprehensive error handling.
 
 ## Technologies
 
@@ -56,24 +58,27 @@ src/main/kotlin/com/nbk/task/backoffice/
 │   ├── CustomerService.kt
 │   └── UserService.kt
 ├── BackOfficeApplication.kt
+|---CorsConfig.kt
 └── LoggingFilter.kt
 ```
 
 ## Security Features
 
 ### JWT Authentication
+
 - **Token Generation**: Uses HMAC SHA algorithm with configurable secret key
 - **Token Expiration**: 24 hours (configurable)
 - **Bearer Token**: Required in Authorization header for protected endpoints
 
 ### Security Configuration
+
 - **Password Encryption**: BCrypt password encoder
 - **Stateless Sessions**: No server-side session storage
-- **CSRF Protection**: Disabled (suitable for stateless API)
 - **Public Endpoints**: `/auth/**` (registration and login)
 - **Protected Endpoints**: All other endpoints require authentication
 
 ### Authentication Flow
+
 1. User registers with username and password
 2. Password is validated and encrypted before storage
 3. User logs in with credentials
@@ -82,6 +87,7 @@ src/main/kotlin/com/nbk/task/backoffice/
 6. `JwtAuthenticationFilter` validates token for each protected request
 
 ### Password Validation Rules
+
 - Minimum 8 characters length
 - At least one uppercase letter
 - At least one digit
@@ -91,6 +97,7 @@ src/main/kotlin/com/nbk/task/backoffice/
 ### Authentication Endpoints
 
 #### Register User
+
 ```http
 POST /auth/register
 Content-Type: application/json
@@ -107,6 +114,7 @@ Response: 200 OK
 ```
 
 #### Login
+
 ```http
 POST /auth/login
 Content-Type: application/json
@@ -125,6 +133,7 @@ Response: 200 OK
 ### Customer Endpoints (Protected)
 
 #### Add Customer
+
 ```http
 POST /customers
 Authorization: Bearer {token}
@@ -147,6 +156,7 @@ Response: 200 OK
 ```
 
 #### Update Customer
+
 ```http
 PATCH /customers/{customerId}
 Authorization: Bearer {token}
@@ -169,6 +179,7 @@ Response: 200 OK
 ```
 
 #### Delete Customer
+
 ```http
 DELETE /customers/{customerId}
 Authorization: Bearer {token}
@@ -180,6 +191,7 @@ Response: 200 OK
 ```
 
 #### List All Customers
+
 ```http
 GET /customers
 Authorization: Bearer {token}
@@ -275,15 +287,18 @@ data class GenericResponseMessage(
 ### Custom Exceptions
 
 #### Password Validation Exceptions
+
 - **PasswordTooShortException**: Password must be at least 8 characters long
 - **PasswordMissingUppercaseException**: Password must contain at least one uppercase letter
 - **PasswordMissingDigitException**: Password must contain at least one number
 
 #### User Management Exceptions
+
 - **UsernameAlreadyExistsException**: Username already exists
 - **UsernameNotFoundException**: Invalid user credentials
 
 #### Customer Management Exceptions
+
 - **CustomerCreationException**: Customer could not be saved
 - **CustomerUpdateException**: Customer could not be found/updated
 - **CustomerDeleteException**: Customer could not be found/deleted
@@ -302,6 +317,7 @@ All exceptions are handled by `GlobalExceptionHandler` which returns standardize
 ```
 
 HTTP Status Codes:
+
 - `400 BAD_REQUEST`: Validation errors, illegal arguments
 - `401 UNAUTHORIZED`: Authentication failures
 - `409 CONFLICT`: Username already exists
@@ -310,8 +326,10 @@ HTTP Status Codes:
 ## Database Schema
 
 ### Users Table
+
 ```sql
-CREATE TABLE users (
+CREATE TABLE users
+(
     id       SERIAL PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL
@@ -319,8 +337,10 @@ CREATE TABLE users (
 ```
 
 ### Customers Table
+
 ```sql
-CREATE TABLE customers (
+CREATE TABLE customers
+(
     id              SERIAL PRIMARY KEY,
     customer_number INTEGER      NOT NULL UNIQUE,
     customer_name   VARCHAR(255) NOT NULL,
@@ -334,15 +354,17 @@ CREATE TABLE customers (
 ## Setup and Configuration
 
 ### Prerequisites
+
 - Java 17
 - Maven 3.9+
 - PostgreSQL database
 
 ### Environment Variables
+
 Configure the following environment variables:
 
 ```properties
-PORT=8080
+PORT=4444
 DBURL=jdbc:postgresql://localhost:5432/backoffice
 USERNAME=your_db_username
 PASSWORD=your_db_password
@@ -357,23 +379,26 @@ SECRET=your_jwt_secret_key
 4. Run the application:
 
 ```bash
-./mvnw spring-boot:run
+./mvnw clean package -DskipTests
 ```
 
 Or build and run the JAR:
 
 ```bash
-./mvnw clean package
+./mvnw clean package -DskipTests
 java -jar target/back-office-0.0.1-SNAPSHOT.jar
 ```
 
 ## Additional Features
 
 ### Request/Response Logging
+
 The application includes a `LoggingFilter` that logs:
+
 - All incoming requests (method, URI, body)
 - All outgoing responses (status, body)
 - Color-coded status codes for better visibility
-
+NOTE: this must be removed in production as passwords are logged in plaintext
 ### Entity Relationship Diagram
+
 An ERD is available at `src/main/resources/erd.png` showing the database structure.
