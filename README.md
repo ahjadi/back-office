@@ -417,7 +417,7 @@ The application includes a `LoggingFilter` that logs:
 - All incoming requests (method, URI, body)
 - All outgoing responses (status, body)
 - Color-coded status codes for better visibility
-NOTE: this must be removed in production as passwords are logged in plaintext
+- NOTE: this must be removed in production as passwords are logged in plaintext
 ### Entity Relationship Diagram
 
 An ERD is available at `src/main/resources/erd.png` showing the database structure.
