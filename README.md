@@ -370,13 +370,19 @@ USERNAME=your_db_username
 PASSWORD=your_db_password
 SECRET=your_jwt_secret_key
 ```
-
 ### Running the Application
 
 1. Clone the repository
 2. Set up PostgreSQL database and create the schema
-3. Configure environment variables
-4. Run the application:
+3. Initialize the database with sample data:
+   ```sql
+   -- Run the init.sql file located at src/main/resources/init.sql
+   -- This will create the tables and insert sample data including:
+   -- - Admin user (username: admin, password: Password123)
+   -- - 10 sample customers
+   ```
+4. Configure environment variables
+5. Run the application:
 
 ```bash
 ./mvnw clean package -DskipTests
@@ -388,6 +394,19 @@ Or build and run the JAR:
 ./mvnw clean package -DskipTests
 java -jar target/back-office-0.0.1-SNAPSHOT.jar
 ```
+
+### Database Initialization
+
+The `src/main/resources/init.sql` file contains:
+- Table creation scripts for `users` and `customers` tables
+- Sample admin user with credentials:
+    - Username: `admin`
+    - Password: `Password123`
+- 10 sample customers with Kuwaiti names and various demographic data
+
+**Note**: The password in init.sql is stored in plain text for demonstration purposes. In production, you should:
+1. Use the `/auth/register` endpoint to create users with properly hashed passwords
+2. Never store plain text passwords in initialization scripts
 
 ## Additional Features
 
